@@ -1,0 +1,62 @@
+-- SERVICES
+
+local Players = game:GetService("Players")
+
+-- INSTANCES
+
+local Player = Players.LocalPlayer
+local Character = Player.Character
+
+-- MAIN SCRIPT
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+    Name = "Main",
+    Icon = 0,
+    LoadingTitle = "Basic Hack UI",
+    LoadingSubtitle = "Provided by Kali",
+    Theme = "Default",
+ 
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+ 
+    ConfigurationSaving = {
+       Enabled = true,
+       FolderName = nil,
+       FileName = "hackuisave"
+    },
+ 
+    Discord = {
+       Enabled = true,
+       Invite = "https://discord.gg/xZyr3bKmaC",
+       RememberJoins = false
+    },
+ 
+    KeySystem = true,
+    KeySettings = {
+       Title = "Key systemt",
+       Subtitle = "the key is 123, u cant hide it :)",
+       Note = "read subtitle",
+       FileName = "Key",
+       SaveKey = true,
+       GrabKeyFromSite = false,
+       Key = {"123"}
+    }
+ })
+
+ local PlayerTab = Window:CreateTab("Player", 133499598193201)
+
+local SpeedSlider = PlayerTab:CreateSlider({
+    Name = "PlayerSpeed",
+    Range = {8, 500},
+    Increment = 10,
+    Suffix = "WalkSpeed",
+    CurrentValue = 10,
+    Flag = "Speed",
+    Callback = function(Value)
+        Character.Humanoid.WalkSpeed = Value
+    end,
+ })
+
+ SpeedSlider:Set(16)
