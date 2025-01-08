@@ -1,5 +1,7 @@
 -- SERVICES
 
+local StarterPlayer = game:GetService("StarterPlayer")
+local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
 -- INSTANCES
@@ -46,11 +48,14 @@ local Window = Rayfield:CreateWindow({
 
  local PlayerTab = Window:CreateTab("Player", 133499598193201)
 
+ local OrginWalkSpeed = StarterPlayer.CharacterWalkSpeed
+ local OrginJumpPower = StarterPlayer.CharacterJumpPower
+
  local SpeedSlider = PlayerTab:CreateSlider({
     Name = "Player WalkSpeed",
-    Range = {4, 400},
+    Range = {OrginWalkSpeed, OrginWalkSpeed * 10},
     Increment = 10,
-    Suffix = "WalkSpeed",
+    Suffix = "Walk Speed",
     CurrentValue = 10,
     Flag = "Speed",
     Callback = function(Value)
@@ -58,18 +63,22 @@ local Window = Rayfield:CreateWindow({
     end,
  })
 
- SpeedSlider:Set(16)
+ SpeedSlider:Set(OrginWalkSpeed)
 
  local JumpSlider = PlayerTab:CreateSlider({
     Name = "Player JumpPower",
-    Range = {20, 200},
+    Range = {OrginJumpPower, OrginJumpPower * 4},
     Increment = 10,
-    Suffix = "JumpPower",
+    Suffix = "Jump Power",
     CurrentValue = 10,
     Flag = "Jump",
     Callback = function(Value)
-        Player.Character.Humanoid.WalkSpeed = Value
+        Player.Character.Humanoid.JumpPower = Value
     end,
- })
+})
 
- JumpSlider:Set(50)
+JumpSlider:Set(OrginJumpPower)
+
+RunService.RenderStepped:Connect(function()
+    Player.Character.Humanoid.UseJumpPower = true
+end)
